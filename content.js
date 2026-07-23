@@ -22,7 +22,11 @@ style.textContent = `
 
 document.head.appendChild(style);
 
-const observer = new MutationObserver(() => {
+let currentUrl = location.href;
+
+function checkIssue() {
+    console.log("checkIssue called");
+
     const title = document.querySelector(
         '[data-testid="issue-title"]'
     );
@@ -31,7 +35,11 @@ const observer = new MutationObserver(() => {
         '[data-testid="markdown-body"]'
     );
 
-    if (title && body) {
+    const existingButton = document.querySelector(
+        ".git-prompt-assistant-button"
+    );
+
+    if (title && body && !existingButton) {
         console.log("Title and body found");
 
         const prompt = `# GitHub Issue
@@ -57,9 +65,27 @@ ${body.textContent}`;
         });
 
         title.parentElement.appendChild(button);
-
-        observer.disconnect();
     }
+}
+
+// 最初に一度確認
+checkIssue();
+
+setInterval(() => {
+    if (location.href !== currentUrl) {
+        currentUrl = location.href;
+
+        console.log("URL changed");
+
+        setTimeout(() => {
+            console.log("Checking issue after URL change");
+            checkIssue();
+        }, 1000);
+    }
+}, 500);
+
+const observer = new MutationObserver(() => {
+    checkIssue();
 });
 
 observer.observe(document.body, {
