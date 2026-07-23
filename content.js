@@ -1,7 +1,6 @@
 console.log("GitPromptAssistant loaded");
 
 const style = document.createElement("style");
-
 style.textContent = `
     .git-prompt-assistant-button {
         margin-left: 8px;
@@ -19,53 +18,68 @@ style.textContent = `
         background-color: #1a7f37;
     }
 `;
-
 document.head.appendChild(style);
+
+function isIssuePage() {
+    return location.pathname.includes("/issues/");
+}
 
 let currentUrl = location.href;
 
 function checkIssue() {
     console.log("checkIssue called");
 
-    const title = document.querySelector(
-        '[data-testid="issue-title"]'
-    );
-
-    const body = document.querySelector(
-        '[data-testid="markdown-body"]'
-    );
+    // issueページ以外の時は処理しない
+    if (!isIssuePage()) {
+        return;
+    }
 
     const existingButton = document.querySelector(
         ".git-prompt-assistant-button"
     );
 
-    if (title && body && !existingButton) {
+    const issue = {
+        title: document.querySelector('[data-testid="issue-title"]'),
+        body: document.querySelector('[data-testid="markdown-body"]')
+    };
+
+    if (issue.title && issue.body && !existingButton) {
         console.log("Title and body found");
 
-        const prompt = `# GitHub Issue
+        const prompt = createPrompt(issue);
+        const button = createCopyButton(prompt);
+
+        issue.title.parentElement.appendChild(button);
+    }
+}
+
+function createPrompt(issue) {
+    return `# GitHub Issue
 
 Title:
-${title.textContent}
+${issue.title.textContent}
 
 Body:
-${body.textContent}`;
+${issue.body.textContent}`;
+}
 
-        const button = document.createElement("button");
-        button.textContent = "Copy for AI";
-        button.className = "git-prompt-assistant-button";
+function createCopyButton(prompt) {
+    const button = document.createElement("button");
 
-        button.addEventListener("click", () => {
-            navigator.clipboard.writeText(prompt).then(() => {
-                button.textContent = "Copied!";
+    button.textContent = "Copy for AI";
+    button.className = "git-prompt-assistant-button";
 
-                setTimeout(() => {
-                    button.textContent = "Copy for AI";
-                }, 2000);
-            });
+    button.addEventListener("click", () => {
+        navigator.clipboard.writeText(prompt).then(() => {
+            button.textContent = "Copied!";
+
+            setTimeout(() => {
+                button.textContent = "Copy for AI";
+            }, 2000);
         });
+    });
 
-        title.parentElement.appendChild(button);
-    }
+    return button;
 }
 
 // 最初に一度確認
