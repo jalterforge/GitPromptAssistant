@@ -24,6 +24,142 @@ function isIssuePage() {
     return location.pathname.includes("/issues/");
 }
 
+function cleanText(text) {
+    return text
+        .replace(/\n\s*\n+/g, "\n\n")
+        .trim();
+}
+
+function convertHtmlToMarkdown(element) {
+    console.log("Converting element:");
+    console.log(element);
+
+    const parts = [];
+
+    for (const child of element.children) {
+        console.log("Child:");
+        console.log(child);
+
+        let converted = "";
+
+        if (child.tagName === "H1") {
+            converted = `# ${child.textContent.trim()}`;
+        }
+
+        if (child.tagName === "H2") {
+            converted = `## ${child.textContent.trim()}`;
+        }
+
+        if (child.tagName === "H3") {
+            converted = `### ${child.textContent.trim()}`;
+        }
+
+        if (child.tagName === "P") {
+            converted = child.textContent.trim();
+        }
+
+        if (child.tagName === "PRE") {
+            converted =
+                "```\n" +
+                child.textContent.trim() +
+                "\n```";
+        }
+
+        if (child.tagName === "OL") {
+            converted = Array.from(child.children)
+                .map((li, index) => {
+                    return `${index + 1}. ${li.textContent.trim()}`;
+                })
+                .join("\n");
+        }
+
+        if (child.tagName === "UL") {
+            converted = Array.from(child.children)
+                .map(li => {
+                    return `- ${li.textContent.trim()}`;
+                })
+                .join("\n");
+        }
+
+        if (
+            child.tagName === "MARKDOWN-ACCESSIBLITY-TABLE"
+        ) {
+            const table = child.querySelector("table");
+
+            if (table) {
+                converted = convertTableToMarkdown(table);
+            }
+        }
+
+        if (child.tagName === "DETAILS") {
+            const summary = child.querySelector("summary");
+
+            const title = summary
+                ? summary.textContent.trim()
+                : "";
+
+            const content = convertHtmlToMarkdown(child);
+
+            converted = `### ${title}
+
+${content}`;
+        }
+
+        if (child.tagName === "TABLE") {
+            converted = convertTableToMarkdown(child);
+        }
+
+        if (
+            child.tagName === "DIV" ||
+            child.tagName === "SECTION"
+        ) {
+            converted = convertHtmlToMarkdown(child);
+        }
+
+        if (converted) {
+            parts.push(converted);
+        }
+    }
+
+    return parts.join("\n\n");
+}
+
+function convertTableToMarkdown(table) {
+    const rows = [];
+
+    for (const tr of table.querySelectorAll("tr")) {
+        const cells = Array.from(
+            tr.querySelectorAll("th, td")
+        );
+
+        const row = cells.map(cell => {
+            return cell.textContent.trim();
+        });
+
+        rows.push(row);
+    }
+
+    if (rows.length === 0) {
+        return "";
+    }
+
+    const header = `| ${rows[0].join(" | ")} |`;
+
+    const separator = `| ${rows[0]
+        .map(() => "---")
+        .join(" | ")} |`;
+
+    const body = rows
+        .slice(1)
+        .map(row => `| ${row.join(" | ")} |`);
+
+    return [
+        header,
+        separator,
+        ...body
+    ].join("\n");
+}
+
 let currentUrl = location.href;
 
 function checkIssue() {
@@ -54,13 +190,18 @@ function checkIssue() {
 }
 
 function createPrompt(issue) {
+    const title = cleanText(issue.title.textContent);
+    const body = convertHtmlToMarkdown(issue.body);
+
     return `# GitHub Issue
 
-Title:
-${issue.title.textContent}
+## Title
 
-Body:
-${issue.body.textContent}`;
+${title}
+
+## Description
+
+${body}`;
 }
 
 function createCopyButton(prompt) {
