@@ -59,9 +59,15 @@ function convertHtmlToMarkdown(element) {
         }
 
         if (child.tagName === "PRE") {
+            const code = child.querySelector("code");
+
+            const codeText = code
+                ? code.textContent
+                : child.textContent;
+
             converted =
                 "```\n" +
-                child.textContent.trim() +
+                codeText.trim() +
                 "\n```";
         }
 

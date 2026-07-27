@@ -111,3 +111,33 @@
 * AI向けプロンプトの改善
 * GitPromptAssistantのMVP完成に向けた機能整理
 
+## 2026-07-27
+
+### Done
+
+* GitHub IssueをAIへ渡しやすいMarkdown形式へ変換する機能を確認
+* 見出し、段落、箇条書き、番号付きリスト、テーブルの変換を確認
+* コードブロックをMarkdownコードブロックとして保持するよう改善
+* 変換後のIssueをGeminiで分析し、AIへ渡す形式として問題ないことを確認
+* GitPromptAssistantのREADME.mdを新規作成
+* GitPromptAssistantの概要をREADMEに追加
+* GitPromptAssistantの機能をREADMEに整理
+* GitPromptAssistantの使い方をREADMEに追加
+* MVPの完成条件を整理
+* 明日の作業として変換機能の最終確認、スクリーンショットまたはGIFの追加、GitHubリポジトリの整理を決定
+
+### Learned
+
+* AIにIssueを渡す場合、元のMarkdown構造を維持することが重要
+* コードブロックは通常のテキストではなく、Markdownコードブロックとして保持する必要がある
+* READMEにはプロジェクトの概要、機能、使い方を記載すると利用者が理解しやすい
+* READMEは現在実装されている機能を中心に記載し、将来の計画とは分けて考える
+* MVPではすべての機能に対応するのではなく、目的を達成するために必要な範囲を完成条件とすることが重要
+
+### Next
+
+* GitHub Issueの変換機能を最終確認する
+* 必要に応じてスクリーンショットまたはGIFをREADMEに追加する
+* GitHubリポジトリを最終整理する
+* GitPromptAssistantのMVP完成を判断する
+
