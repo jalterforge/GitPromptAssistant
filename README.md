@@ -2,15 +2,19 @@
 
 GitHub Issueの内容をAIに渡しやすいMarkdown形式へ変換し、クリップボードへコピーするChrome拡張機能です。
 
+Compatible with:
+
+- ChatGPT
+- Gemini
+- Claude
+- GitHub Copilot Chat
+
 ## Features
 
-- GitHub Issueのタイトルを取得
-- GitHub Issueの本文を取得
-- 見出し、箇条書き、番号付きリストをMarkdown形式で保持
-- テーブルをMarkdown形式へ変換
-- コードブロックをMarkdown形式で保持
 - AIへ渡すためのプロンプトを生成
-- 生成した内容をクリップボードへコピー
+- Convert GitHub Issues into AI-friendly Markdown
+- Preserve headings, lists, tables and code blocks
+- Copy the generated prompt to the clipboard
 
 ## Usage
 
@@ -22,7 +26,22 @@ GitHub Issueの内容をAIに渡しやすいMarkdown形式へ変換し、クリ�
 
 ## Current Status
 
--
+Current MVP features:
+
+- Copy GitHub Issue to Markdown
+- Preserve headings
+- Preserve bullet lists
+- Preserve numbered lists
+- Preserve tables
+- Preserve code blocks
+- Generate AI-friendly prompt
+- Copy to clipboard
+
+Planned for v0.2:
+
+- Custom prompt templates
+- Copy Prompt option
+- Additional formatting improvements
 
 ## Development
 
@@ -31,4 +50,36 @@ GitHub Issueの内容をAIに渡しやすいMarkdown形式へ変換し、クリ�
 
 ## License
 
-TBD
+License will be added before Chrome Web Store release.
+
+## Screenshots
+
+### 1. GitHub Issue page
+
+![Issue page](docs/images/issue-page-with-button.png)
+
+GitHub Issueに「Copy for AI」ボタンが表示されます。
+
+---
+
+### 2. Copy to clipboard
+
+![Copied](docs/images/copied-message.png)
+
+ボタンをクリックするとAI向けMarkdownがクリップボードへコピーされます。
+
+---
+
+### 3. Paste into AI
+
+![Paste](docs/images/ai-paste.png)
+
+ChatGPTやGeminiへそのまま貼り付けます。
+
+---
+
+### 4. AI analysis result
+
+![Analysis](docs/images/ai-analysis.png)
+
+AIがIssueを構造を保ったまま解析できます。
