@@ -1,6 +1,13 @@
 # GitPromptAssistant
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Available-green)](ストアURL)
 
 GitHub Issueの内容をAIに渡しやすいMarkdown形式へ変換し、クリップボードへコピーするChrome拡張機能です。
+
+## Install
+
+👉 Available on the Chrome Web Store
+
+https://chromewebstore.google.com/detail/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Compatible with:
 
@@ -50,7 +57,8 @@ Planned for v0.2:
 
 ## License
 
-License will be added before Chrome Web Store release.
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
 
 ## Screenshots
 
