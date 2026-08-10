@@ -1,60 +1,30 @@
-\# GitPromptAssistant Project Context
+# GitPromptAssistant Project Context
 
+## Project
 
+GitPromptAssistantは、GitHub IssueをAI向けMarkdownへ変換し、クリップボードへコピーするChrome拡張機能である。
 
-\## Project
+## Goal
 
+シンプルで信頼性が高く、保守しやすい構成を維持しながら、AIを利用した開発ワークフローでの実用性を高める。
 
+## Scope
 
-GitPromptAssistant is a Chrome extension that converts GitHub Issues into AI-friendly Markdown and copies the result to the clipboard.
+- GitHub Issueの内容取得
+- Markdown変換
+- AI向け出力の生成
+- `Copy for AI`によるクリップボード出力
+- 上記機能に関連するChrome拡張機能としての動作
 
+## Constraints
 
+- 既存のMarkdown変換機能を維持する。
+- 不要な依存関係や過剰設計を避ける。
+- 小さくレビュー可能な変更を優先する。
+- 現在のChrome拡張機能の構成との互換性を維持する。
 
-\## Goal
+## Development Notes
 
-
-
-Keep the extension simple, reliable, and easy to maintain while improving usefulness for AI-assisted development workflows.
-
-
-
-\## Scope
-
-
-
-\- GitHub Issue content extraction
-
-\- Markdown conversion
-
-\- AI-friendly prompt generation
-
-\- `Copy for AI` clipboard output
-
-\- Chrome Extension behavior related to these features
-
-
-
-\## Constraints
-
-
-
-\- Preserve existing Markdown conversion behavior.
-
-\- Avoid unnecessary dependencies and overengineering.
-
-\- Prefer small, reviewable changes.
-
-\- Keep compatibility with the current Chrome Extension architecture.
-
-
-
-\## Development Notes
-
-
-
-\- Main logic is currently implemented in `content.js`.
-
-\- Validate JavaScript syntax after changes when applicable.
-
-\- For browser-dependent behavior, use lightweight verification and final manual Chrome testing when needed.
-
+- 現在の主要ロジックは`content.js`に実装されている。
+- JavaScriptを変更した場合は、必要に応じて構文確認を行う。
+- ブラウザ依存の動作は、軽量な自動検証を行ったうえで、必要に応じてChrome上で最終確認する。
