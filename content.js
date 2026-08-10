@@ -182,7 +182,8 @@ function checkIssue() {
 
     const issue = {
         title: document.querySelector('[data-testid="issue-title"]'),
-        body: document.querySelector('[data-testid="markdown-body"]')
+        body: document.querySelector('[data-testid="markdown-body"]'),
+        url: location.origin + location.pathname
     };
 
     if (issue.title && issue.body && !existingButton) {
@@ -200,6 +201,10 @@ function createPrompt(issue) {
     const body = convertHtmlToMarkdown(issue.body);
 
     return `# GitHub Issue
+
+## URL
+
+${issue.url}
 
 ## Title
 
