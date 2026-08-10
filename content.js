@@ -166,6 +166,39 @@ function convertTableToMarkdown(table) {
     ].join("\n");
 }
 
+function getCommentAuthor(bodyElement) {
+    let node = bodyElement.parentElement;
+
+    while (node && node !== document.body) {
+        const avatar = node.querySelector('[data-testid="github-avatar"]');
+
+        if (avatar) {
+            const alt = (avatar.getAttribute("alt") || "").trim();
+
+            return alt.startsWith("@") ? alt : `@${alt}`;
+        }
+
+        node = node.parentElement;
+    }
+
+    return "@unknown";
+}
+
+function getComments(issueBodyElement) {
+    const bodies = document.querySelectorAll(
+        '[data-testid="markdown-body"]'
+    );
+
+    return Array.from(bodies)
+        .filter(body => body !== issueBodyElement)
+        .map(body => {
+            return {
+                author: getCommentAuthor(body),
+                body: convertHtmlToMarkdown(body)
+            };
+        });
+}
+
 let currentUrl = location.href;
 
 function checkIssue() {
@@ -188,8 +221,7 @@ function checkIssue() {
     if (issue.title && issue.body && !existingButton) {
         console.log("Title and body found");
 
-        const prompt = createPrompt(issue);
-        const button = createCopyButton(prompt);
+        const button = createCopyButton(issue);
 
         issue.title.parentElement.appendChild(button);
     }
@@ -199,8 +231,9 @@ function createPrompt(issue) {
     const title = cleanText(issue.title.textContent);
     const body = convertHtmlToMarkdown(issue.body);
     const url = location.href;
+    const comments = getComments(issue.body);
 
-    return `# GitHub Issue
+    let prompt = `# GitHub Issue
 
 ## URL
 
@@ -213,15 +246,27 @@ ${title}
 ## Description
 
 ${body}`;
+
+    if (comments.length > 0) {
+        const commentsMarkdown = comments
+            .map(comment => `### ${comment.author}\n\n${comment.body}`)
+            .join("\n\n");
+
+        prompt += `\n\n## Comments\n\n${commentsMarkdown}`;
+    }
+
+    return prompt;
 }
 
-function createCopyButton(prompt) {
+function createCopyButton(issue) {
     const button = document.createElement("button");
 
     button.textContent = "Copy for AI";
     button.className = "git-prompt-assistant-button";
 
     button.addEventListener("click", () => {
+        const prompt = createPrompt(issue);
+
         navigator.clipboard.writeText(prompt).then(() => {
             button.textContent = "Copied!";
 
