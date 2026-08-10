@@ -198,8 +198,13 @@ function checkIssue() {
 function createPrompt(issue) {
     const title = cleanText(issue.title.textContent);
     const body = convertHtmlToMarkdown(issue.body);
+    const url = location.href;
 
     return `# GitHub Issue
+
+## URL
+
+${url}
 
 ## Title
 
