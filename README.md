@@ -21,6 +21,7 @@ Compatible with:
 - AIへ渡すためのプロンプトを生成
 - Convert GitHub Issues into AI-friendly Markdown
 - Preserve headings, lists, tables and code blocks
+- Include Issue comments (author and body) in the generated Markdown
 - Copy the generated prompt to the clipboard
 
 ## Usage
@@ -41,10 +42,15 @@ Current MVP features:
 - Preserve numbered lists
 - Preserve tables
 - Preserve code blocks
+- Include Issue comments in Markdown
 - Generate AI-friendly prompt
 - Copy to clipboard
 
-Planned for v0.2:
+v0.2 completed:
+
+- Include Issue comments (author and body) in the generated Markdown
+
+Future candidates (no target version yet):
 
 - Custom prompt templates
 - Copy Prompt option

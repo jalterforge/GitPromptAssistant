@@ -141,3 +141,29 @@
 * GitHubリポジトリを最終整理する
 * GitPromptAssistantのMVP完成を判断する
 
+## 2026-08-10
+
+### Done
+
+* GitHub IssueのコメントをCopy for AIの出力に含める機能を実装
+* コメント本文をIssue本文と同じMarkdown変換処理(`convertHtmlToMarkdown`)で再利用するよう実装
+* コメント投稿者を`data-testid="github-avatar"`のalt属性から`@username`形式で特定する処理を実装
+* コメントが非同期で読み込まれるため、ボタンクリック時にプロンプトを生成するよう`createCopyButton`を変更
+* jsdomを用いた一時検証スクリプトでコメント抽出とMarkdown出力を確認
+* 実ブラウザでコメント付きIssueページの動作を確認し、投稿者・本文・既存出力(URL/Title/Description)が維持されることを確認
+* 変更を`content.js`のみに限定してコミット・push
+
+### Learned
+
+* GitHubの新しいIssue UIはReactベースで、コメントは初期HTMLに含まれず非同期に読み込まれる
+* ボタン生成時にプロンプト文字列を固定すると、非同期ロードされる要素(コメント)が欠落したままコピーされる場合がある
+* `data-testid`属性やアバターの`alt="@username"`など、GitHubの安定した属性を軸にDOM取得ロジックを組むと、CSSクラス名の変更に影響されにくい
+* ブラウザを直接操作できない場合でも、jsdomで想定DOMを模擬することで変換ロジックの単体検証ができる
+
+### Next
+
+* Chrome Web Storeへのv0.2公開作業
+* 公開後の利用状況・フィードバックを確認
+* Bot投稿やTimelineイベントへの対応は、必要性が確認できた場合に将来候補として検討
+* Custom prompt templatesなどの追加機能は、v0.2公開後の将来候補として検討
+
