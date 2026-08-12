@@ -1,5 +1,3 @@
-console.log("GitPromptAssistant loaded");
-
 const style = document.createElement("style");
 style.textContent = `
     .git-prompt-assistant-button {
@@ -31,15 +29,9 @@ function cleanText(text) {
 }
 
 function convertHtmlToMarkdown(element) {
-    console.log("Converting element:");
-    console.log(element);
-
     const parts = [];
 
     for (const child of element.children) {
-        console.log("Child:");
-        console.log(child);
-
         let converted = "";
 
         if (child.tagName === "H1") {
@@ -202,8 +194,6 @@ function getComments(issueBodyElement) {
 let currentUrl = location.href;
 
 function checkIssue() {
-    console.log("checkIssue called");
-
     // issueページ以外の時は処理しない
     if (!isIssuePage()) {
         return;
