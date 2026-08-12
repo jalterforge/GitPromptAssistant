@@ -107,6 +107,15 @@ ${content}`;
             converted = convertTableToMarkdown(child);
         }
 
+        if (child.tagName === "BLOCKQUOTE") {
+            const content = convertHtmlToMarkdown(child);
+
+            converted = content
+                .split("\n")
+                .map(line => `> ${line}`)
+                .join("\n");
+        }
+
         if (
             child.tagName === "DIV" ||
             child.tagName === "SECTION"
