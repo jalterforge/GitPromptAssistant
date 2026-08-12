@@ -167,3 +167,27 @@
 * Bot投稿やTimelineイベントへの対応は、必要性が確認できた場合に将来候補として検討
 * Custom prompt templatesなどの追加機能は、v0.2公開後の将来候補として検討
 
+## 2026-08-13
+
+### Done
+
+* Claude Codeの承認ルールVersion 1を実タスクで検証
+* 小規模リファクタリングとして不要な`console.log`を削除
+* `node --check` / `git diff` / `git status`などのAllowルールが承認なしで機能することを確認
+* `git commit` / `git push`がAskルールで確認されることを確認
+* BLOCKQUOTEがMarkdown変換から欠落する不具合を発見・修正
+* jsdomによる軽量検証を実施
+* 実際のGitHub Issueで引用、ネスト引用、引用内コードがCopy for AIに保持されることを確認
+* リファクタリングとBLOCKQUOTE修正をcommit・push済み
+* Claude Codeで機能追加・リファクタリング・バグ修正の3種類の実タスクを完了
+
+### Learned
+
+* 承認ルールVersion 1は、実際の開発タスク(機能追加・リファクタリング・バグ修正)を通しても想定どおり機能した
+* 軽量な自動検証(`node --check`、jsdomによる単体検証など)を基本とし、ブラウザ依存の挙動など必要な箇所のみ人間による実ブラウザ確認に絞る運用は、Claude Codeとの協働において有効だった
+
+### Next
+
+* Claude Code検証フェーズを終了できるか最終判断する
+* 問題なければClaude Codeを検証用途から実運用へ移行する
+
