@@ -191,3 +191,24 @@
 * Claude Code検証フェーズを終了できるか最終判断する
 * 問題なければClaude Codeを検証用途から実運用へ移行する
 
+## 2026-08-15
+
+### Done
+
+* AI Development OS + Claude Codeの統合運用を実プロジェクトで検証した
+* 機能追加・リファクタリング・不具合修正の3種類の実タスクを完了した
+* Allow / Ask / Denyの権限ルールVersion 1を実運用で確認した
+  * `git add` / `git status` / `git diff` / `git log` / `node --check` はAllow
+  * `git commit` / `git push` / `npm install` はAsk
+  * `git reset --hard` / `git clean -fd` はDeny
+* Claude Code検証フェーズを終了し、今後は実運用へ移行することを決定した
+
+### Learned
+
+* 軽量自動検証を基本とし、必要箇所のみ人間による実ブラウザ確認を行う運用が成立した
+* 権限ルールによって安全性を維持しつつ、不要な承認回数を減らせることを確認した
+
+### Next
+
+* Claude Codeを実運用として継続利用する
+
